@@ -41,40 +41,11 @@ public class Cryptographer {
         List<String> initialText = Files.readAllLines(loadFile.getPathSourceFile());
         StringBuilder singleLine = new StringBuilder();
 
-        char[] charArray = new char[(int) Files.size(loadFile.getPathSourceFile())];
-
-        for (int i = 0; i < charArray.length; i++) {
-
-        }
-
-        for (String s : initialText) {
-            char[] singleCharArray = s.toCharArray();
-        }
-
         for (String s : initialText) { // собираем список строк в единую строку;
             singleLine.append(s + "\n");
         }
 
-        Set<Character> symbolSet = new HashSet<>();
 
-        for (String s : initialText) { //цикл для записи в Set уникальных символов из исходного текста
-            char[] charArray = s.toCharArray();
-            for (char c : charArray) {
-                symbolSet.add(c);
-            }
-        }
-
-        
-
-//        for (Character c : symbolSet) {
-//            if(ALPHABET.contains(c)) {
-//                Collections.replaceAll(initialText, c, );
-//            }
-//        }
-
-//        for (Character c : symbolSet) {
-//            System.out.print(c + " ");
-//        }
 
         scanner.close();
     }
