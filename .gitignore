@@ -28,3 +28,7 @@ bin/
 ### Mac OS ###
 .DS_Store
 /.idea/
+/src/source(reserved).txt
+/src/сдвиг элемента для шифровки-расшифровки с помощью заданного алфавита.txt
+/src/часть проверки ключа шифрования.txt
+/src/Cryptanalyzer/Playground.java

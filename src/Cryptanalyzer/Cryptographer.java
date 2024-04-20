@@ -1,116 +1,59 @@
 package Cryptanalyzer;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Cryptographer {
-    private static final List ALPHABET = List.of('а', 'б', 'в',
-            'г', 'д', 'е', 'ж', 'з', 'и', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у',
-            'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'я', '.', ',', '«', '»',
-            ':', '!', '?', ' ');
 
-    public static void startEncryptionText(int key) throws IOException {
-        boolean isValidPath = false;
-        FileLoader loadFile = new FileLoader();
-        Scanner scanner = new Scanner(System.in);
+    public static void startCryptographicOperation(int key, final int indexOperation) {
+        FileWorker loadPath = new FileWorker();
+        Desktop desktop = Desktop.getDesktop();
+        File file;
 
-        while(!isValidPath) {
-            System.out.println("\t\t\t\tВведите путь к файлу с исходным текстом...\n");
-            Path initialPath = Path.of(scanner.nextLine());
+        System.out.println("\t\t\t\t\t\t\t\t\uD83D\uDCDCВведите путь к файлу с исходным текстом\n");
+        Validator.pathValidation(loadPath, PathType.PATH_TO_SOURCE_FILE);
 
-            if(Files.exists(initialPath) && Files.isRegularFile(initialPath)) {
-                loadFile.setPathSourceFile(initialPath);
-                isValidPath = true;
-            }
+        System.out.println("\t\t\t\t\t\t\t\t\uD83D\uDCDCВведите путь к файлу для записи зашифрованного текста\n");
+        Validator.pathValidation(loadPath, PathType.PATH_TO_DESTINATION_FILE);
+
+        try {
+            List<String> initialText = loadPath.readFileContents(loadPath);
+            List<String> shiftedText = makeShiftSymbol(initialText, key, indexOperation);
+            loadPath.writeContentToFile(loadPath, shiftedText);
+            file = loadPath.getPathDestinationFile().toFile();
+            desktop.open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        isValidPath = false;
-
-        while(!isValidPath) {
-            System.out.println("\t\t\t\tВведите путь к файлу для записи зашифрованного текста...\n");
-            Path destinationPath = Path.of(scanner.nextLine());
-
-            if(Files.exists(destinationPath) && Files.isRegularFile(destinationPath)) {
-                loadFile.setPathDestinationFile(destinationPath);
-                isValidPath = true;
-            }
-        }
-
-        List<String> initialText = Files.readAllLines(loadFile.getPathSourceFile());
-        StringBuilder singleLine = new StringBuilder();
-
-        for (String s : initialText) { // собираем список строк в единую строку;
-            singleLine.append(s + "\n");
-        }
-
-
-
-        scanner.close();
-    }
-
-    public static void startDecryptionText(int key) {
-        boolean isValidPath = false;
-        FileLoader loadFile = new FileLoader();
-        Scanner scanner = new Scanner(System.in);
-
-        while(!isValidPath) {
-            System.out.println("\t\t\t\tВведите путь к файлу с зашифрованным текстом...\n");
-            Path initialPath = Path.of(scanner.nextLine());
-
-            if(Files.exists(initialPath) && Files.isRegularFile(initialPath)) {
-                loadFile.setPathSourceFile(initialPath);
-                isValidPath = true;
-            }
-        }
-
-        isValidPath = false;
-
-        while(!isValidPath) {
-            System.out.println("\t\t\t\tВведите путь к файлу для записи расшифрованного текста...\n");
-            Path destinationPath = Path.of(scanner.nextLine());
-
-            if(Files.exists(destinationPath) && Files.isRegularFile(destinationPath)) {
-                loadFile.setPathDestinationFile(destinationPath);
-                isValidPath = true;
-            }
-        }
-
-
-
-        scanner.close();
     }
 
     public static void startDecryptionTextByBruteForce() {
-        boolean isValidPath = false;
-        FileLoader loadFile = new FileLoader();
-        Scanner scanner = new Scanner(System.in);
 
-        while(!isValidPath) {
-            System.out.println("\t\t\t\tВведите путь к файлу с зашифрованным текстом...\n");
-            Path initialPath = Path.of(scanner.nextLine());
+    }
 
-            if(Files.exists(initialPath) && Files.isRegularFile(initialPath)) {
-                loadFile.setPathSourceFile(initialPath);
-                isValidPath = true;
+    public static List<String> makeShiftSymbol(List<String> initialText, int key, int indexOperation) {
+        StringBuilder shiftedLine = new StringBuilder();
+        List<String> shiftedText = new ArrayList<>();
+
+        for (String currentLine : initialText) {
+            for (int i = 0; i < currentLine.length(); i++) {
+                char currentSymbolInLine = currentLine.charAt(i);
+
+                if (indexOperation == 1) {
+                    char shiftedSymbol = (char) (currentSymbolInLine + key);
+                    shiftedLine.append(shiftedSymbol);
+                } else if (indexOperation == 2) {
+                    char shiftedSymbol = (char) (currentSymbolInLine - key);
+                    shiftedLine.append(shiftedSymbol);
+                }
             }
+            shiftedText.add(String.valueOf(shiftedLine));
+            shiftedLine.delete(0, shiftedLine.length());
         }
-
-        isValidPath = false;
-
-        while(!isValidPath) {
-            System.out.println("\t\t\t\tВведите путь к файлу для записи расшифрованного текста...\n");
-            Path destinationPath = Path.of(scanner.nextLine());
-
-            if(Files.exists(destinationPath) && Files.isRegularFile(destinationPath)) {
-                loadFile.setPathDestinationFile(destinationPath);
-                isValidPath = true;
-            }
-        }
-
-
-
-        scanner.close();
+        return shiftedText;
     }
 }

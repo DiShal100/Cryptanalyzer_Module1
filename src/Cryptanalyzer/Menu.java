@@ -1,89 +1,74 @@
 package Cryptanalyzer;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Scanner;
-
 public class Menu {
+    private static boolean exit = false;
 
     public static void showMenu() {
-        boolean exit = false;
 
         System.out.print("\n\n" +
-                "\t\t\t\t\t\t * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n" +
-                "\t\t\t\t\t\t * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n" +
-                "\t\t\t\t\t\t * *  Добро пожаловать в программу \'Криптоанализатор\'!   * *\n" +
-                "\t\t\t\t\t\t * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n" +
-                "\t\t\t\t\t\t * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n\n\n" +
-                "\t\t\t\t* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n" +
-                "\t\t\t\t* Выберите один из пунктов меню:                                            *\n" +
-                "\t\t\t\t*                                                                           *\n" +
-                "\t\t\t\t* (1) -> Шифровка текста с помощью ключа;                                   *\n" +
-                "\t\t\t\t*                                                                           *\n" +
-                "\t\t\t\t* (2) -> Расшифровка текста с помощью ключа;                                *\n" +
-                "\t\t\t\t*                                                                           *\n" +
-                "\t\t\t\t* (3) -> Расшифровка текста с помощью brute force (перебор всех вариантов); *\n" +
-                "\t\t\t\t*                                                                           *\n" +
-                "\t\t\t\t* (4) -> Выход.                                                             *\n" +
-                "\t\t\t\t* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n\n\t\t\t\t\t");
-
-        Scanner inputIndexMenuItem = new Scanner(System.in);
+                "\t\t\t\t\t\t   ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮  \n" +
+                "\t\t\t\t\t\t ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮\n" +
+                "\t\t\t\t\t\t ✮ ✮                                                        ✮ ✮\n" +
+                "\t\t\t\t\t\t   ✮ ✮  Добро пожаловать в программу \'Криптоанализатор\'!  ✮ ✮\n" +
+                "\t\t\t\t\t\t ✮ ✮                                                        ✮ ✮\n" +
+                "\t\t\t\t\t\t ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮\n" +
+                "\t\t\t\t\t\t   ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮ ✮  \n\n" +
+                "\t\t\t\t┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓\n" +
+                "\t\t\t\t┃ Выберите один из пунктов меню:                                             ┃\n" +
+                "\t\t\t\t┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n" +
+                "\t\t\t\t┃ (1) -> Шифровка текста с помощью ключа                                     ┃\n" +
+                "\t\t\t\t┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n" +
+                "\t\t\t\t┃ (2) -> Расшифровка текста с помощью ключа                                  ┃\n" +
+                "\t\t\t\t┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n" +
+                "\t\t\t\t┃ (3) -> Расшифровка текста с помощью brute force (перебор всех вариантов)   ┃\n" +
+                "\t\t\t\t┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫\n" +
+                "\t\t\t\t┃ (4) -> Выход                                                               ┃\n" +
+                "\t\t\t\t┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛\n\n\t\t\t\t\t");
 
         while (!exit) {
-            int indexMenuItem = inputIndexMenuItem.nextInt();
 
-            switch (indexMenuItem) {
-                case 1 -> startEncode();
-                case 2 -> startDecode();
+            int menuItemIndex = Validator.menuItemIndexValidation();
+
+            switch (menuItemIndex) {
+                case 1 -> startEncode(menuItemIndex);
+                case 2 -> startDecode(menuItemIndex);
                 case 3 -> startDecodeByBruteForce();
-                case 4 -> exit = true;
+                case 4 -> exit();
             }
 
-            System.out.println("\t\t\t\t\t\t\t\tВыход из программы...\n\n" +
-                        "\t\t\t\t\t\t\t\t\tДо свидания!");
+            System.out.println("\t\t\t\t\t\t\t\t\t" +
+                    "" +
+                    "꧁ Выход из программы ꧂\n\n" +
+                    "\t\t\t\t\t\t\t\t\t\t꧁ До свидания! ꧂");
         }
     }
 
 
-    private static void startEncode() {
-        boolean isValidKey = false;
-        int key;
-        try(InputStreamReader input = new InputStreamReader(System.in)) {
-            while (!isValidKey) {
-                System.out.println("Введите цифровой ключ для шифрования текста...");
-                key = input.read();
-
-                if (Character.isDigit(key) && key != 0) {
-                    Cryptographer.startEncryptionText(key);
-                    isValidKey = true;
-                }
-            }
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
+    private static void startEncode(int indexOperation) {
+        System.out.println("\t\t\t\t\t\t\t\t\uD83D\uDD11Для шифрования текста введите цифровой ключ");
+        Cryptographer.startCryptographicOperation(Validator.keyValidation(), indexOperation);
+        System.out.println("\t\t\t\t\t\t\t\t꧁ Файл успешно зашифрован! ꧂\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\uD83D\uDD10");
+        exit();
     }
 
-    private static void startDecode() {
-        boolean isValidKey = false;
-        int key;
-        try(InputStreamReader input = new InputStreamReader(System.in)) {
-            while (!isValidKey) {
-                System.out.println("Введите цифровой ключ для расшифровки текста...");
-                key = input.read();
 
-                if (Character.isDigit(key) && key != 0) {
-                    Cryptographer.startDecryptionText(key);
-                    isValidKey = true;
-                }
-            }
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
+    private static void startDecode(int indexOperation) {
+        System.out.println("\t\t\t\t\t\t\t\t\uD83D\uDD11Для расшифровки текста введите цифровой ключ");
+        Cryptographer.startCryptographicOperation(Validator.keyValidation(), indexOperation);
+        System.out.println("\t\t\t\t\t\t\t\t꧁ Файл успешно расшифрован! ꧂\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\uD83D\uDD13");
+        exit();
     }
 
     private static void startDecodeByBruteForce() {
         Cryptographer.startDecryptionTextByBruteForce();
+        exit();
+    }
+
+    private static void exit() {
+        Menu.exit = true;
     }
 }
+
+

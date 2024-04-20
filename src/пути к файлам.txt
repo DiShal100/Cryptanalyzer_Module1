@@ -1,0 +1,2 @@
+C:\Users\Dima\IdeaProjects\Cryptanalyzer_Module1\src\source.txt
+C:\Users\Dima\IdeaProjects\Cryptanalyzer_Module1\src\destination.txt
