@@ -27,12 +27,12 @@ public class FileWorker {
         this.pathDestinationFile = destinationPath;
     }
 
-    public List<String> readFileContents(FileWorker filePath) throws IOException{
+    public static List<String> readContentFromFile(FileWorker filePath) throws IOException{
         List<String> initialText;
         initialText = Files.readAllLines(filePath.getPathSourceFile(), StandardCharsets.UTF_8);
         return initialText;
     }
-    public void writeContentToFile(FileWorker filePath, List<String> shiftedText) throws IOException {
+    public static void writeContentToFile(FileWorker filePath, List<String> shiftedText) throws IOException {
         Files.write(filePath.getPathDestinationFile(), new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
         Files.write(filePath.getPathDestinationFile(), shiftedText, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
     }

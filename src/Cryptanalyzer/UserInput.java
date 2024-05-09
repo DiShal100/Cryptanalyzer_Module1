@@ -28,4 +28,12 @@ public class UserInput {
         }
         return singleInputLine.toString().trim();
     }
+
+    public static void requestPathUserFile (FileWorker loadPath) {
+        System.out.println("\t\t\t\t\t\t\t\t\uD83D\uDCDCВведите путь к файлу с исходным текстом\n");
+        Validator.pathValidation(loadPath, PathType.PATH_TO_SOURCE_FILE);
+
+        System.out.println("\t\t\t\t\t\t\t\t\uD83D\uDCDCВведите путь к файлу для записи обработанного текста\n");
+        Validator.pathValidation(loadPath, PathType.PATH_TO_DESTINATION_FILE);
+    }
 }

@@ -30,8 +30,8 @@ public class Menu {
             int menuItemIndex = Validator.menuItemIndexValidation();
 
             switch (menuItemIndex) {
-                case 1 -> startEncode(menuItemIndex);
-                case 2 -> startDecode(menuItemIndex);
+                case 1 -> startEncode();
+                case 2 -> startDecode();
                 case 3 -> startDecodeByBruteForce();
                 case 4 -> exit();
             }
@@ -44,25 +44,30 @@ public class Menu {
     }
 
 
-    private static void startEncode(int indexOperation) {
+    private static void startEncode() {
+        Cryptographer encoder = new Encoder();
         System.out.println("\t\t\t\t\t\t\t\t\uD83D\uDD11Для шифрования текста введите цифровой ключ");
-        Cryptographer.startCryptographicOperation(Validator.keyValidation(), indexOperation);
+        encoder.startCryptographicOperation();
         System.out.println("\t\t\t\t\t\t\t\t꧁ Файл успешно зашифрован! ꧂\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\uD83D\uDD10");
         exit();
     }
 
 
-    private static void startDecode(int indexOperation) {
+    private static void startDecode() {
+        Cryptographer decoder = new Decoder();
         System.out.println("\t\t\t\t\t\t\t\t\uD83D\uDD11Для расшифровки текста введите цифровой ключ");
-        Cryptographer.startCryptographicOperation(Validator.keyValidation(), indexOperation);
+        decoder.startCryptographicOperation();
         System.out.println("\t\t\t\t\t\t\t\t꧁ Файл успешно расшифрован! ꧂\n" +
                 "\t\t\t\t\t\t\t\t\t\t\t\t\uD83D\uDD13");
         exit();
     }
 
     private static void startDecodeByBruteForce() {
-        Cryptographer.startDecryptionTextByBruteForce();
+        Cryptographer bruteForce = new BruteForce();
+        int correctKey = bruteForce.startCryptographicOperation();
+        System.out.println("\t\t\t\t\t\t\t\t꧁ Файл успешно расшифрован при значении ключа = " + correctKey + " ꧂\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\uD83D\uDD13");
         exit();
     }
 

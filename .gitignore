@@ -2,6 +2,7 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.idea/
 
 ### Eclipse ###
 .apt_generated
@@ -32,3 +33,4 @@ bin/
 /src/сдвиг элемента для шифровки-расшифровки с помощью заданного алфавита.txt
 /src/часть проверки ключа шифрования.txt
 /src/Cryptanalyzer/Playground.java
+/src/source(eng).txt

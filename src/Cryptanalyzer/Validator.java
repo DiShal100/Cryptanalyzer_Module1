@@ -46,9 +46,11 @@ public class Validator {
                 System.out.println("\t\t\t\t\t\t⚠\uFE0FВведён некорректный ключ! Ввод не должен быть пустым...");
                 continue;
             }
-            if (!isDigitKey(inputLine)) {
+            if (!isDigitKey(inputLine) || (Integer.parseInt(inputLine) < 1
+                    || Integer.parseInt(inputLine) >= Cryptographer.getAlphabet().size())) {
                 System.out.println("\t\t\t\t\t\t⚠\uFE0FВведён некорректный ключ! Ввод должен содержать целое " +
-                        "положительное число");
+                        "положительное число от 1 до "
+                        + (Cryptographer.getAlphabet().size()-1) + "⚠\uFE0F");
             } else {
                 key = Integer.parseInt(inputLine);
                 return key;
@@ -81,8 +83,12 @@ public class Validator {
 
             inputPath = Path.of(inputLine);
 
-            if (!Files.exists(inputPath) && !Files.isRegularFile(inputPath)) {
-                System.out.println("\t\t\t\t\t\t\t\t⚠\uFE0FВведите корректный путь к файлу...\n");
+            if (!inputPath.isAbsolute()) {
+                System.out.println("\t\t\t\t\t\t\t\t⚠\uFE0FВведите абсолютный (полный) путь к файлу...\n");
+                continue;
+            }
+            if (!Files.exists(inputPath) || !Files.isRegularFile(inputPath)) {
+                System.out.println("\t\t\t\t\t\t\t\t⚠\uFE0FВведите путь к файлу, который существует...\n");
             } else {
                 switch (pathToWhichFile) {
                     case PATH_TO_SOURCE_FILE -> filePath.setPathSourceFile(inputPath);
