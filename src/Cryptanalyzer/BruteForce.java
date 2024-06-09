@@ -19,7 +19,7 @@ public class BruteForce extends Decoder {
             initialText = FileWorker.readContentFromFile(loadFile);
 
             for (int currentKey = 1; currentKey < getAlphabet().size(); currentKey++) {
-                shiftedText = makeSymbolShift(initialText, currentKey);
+                shiftedText = makeSymbolShiftInText(initialText, currentKey);
 
                 actualFrequencyMap = calculateFrequencyOfEachLetter(shiftedText);
                 matchingForCurrentKey = calculateFrequencyMatch(actualFrequencyMap, russianReferenceFrequencyMap);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Cryptographer {
-    private static final List ALPHABET = List.of('а', 'б', 'в',
+    private static final List<Character> ALPHABET = List.of('а', 'б', 'в',
             'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у',
             'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', '.', ',', '«', '»',
             ':', '!', '?', ' ');
@@ -15,7 +15,7 @@ public abstract class Cryptographer {
     protected List<String> shiftedText = new ArrayList<>();
     protected Integer key;
 
-    public static List getAlphabet() {
+    public static List<Character> getAlphabet() {
         return Cryptographer.ALPHABET;
     }
 
@@ -24,7 +24,7 @@ public abstract class Cryptographer {
             key = Validator.keyValidation();
             UserInput.requestPathUserFile(loadFile);
             initialText = FileWorker.readContentFromFile(loadFile);
-            shiftedText = makeSymbolShift(initialText, key);
+            shiftedText = makeSymbolShiftInText(initialText, key);
             FileWorker.writeContentToFile(loadFile, shiftedText);
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,6 +32,8 @@ public abstract class Cryptographer {
         return key;
     }
 
-    public abstract List<String> makeSymbolShift(List<String> initialText, int key);
+    protected abstract Character getShiftedSymbol(char currentSymbolInLine, int key);
+
+    public abstract List<String> makeSymbolShiftInText(List<String> initialText, int key);
 
 }
